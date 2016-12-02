@@ -32,7 +32,7 @@ class Bishop < Piece
       from[0] + from[1] == to[0] + to[1]
     end    
     
-    MovePossibility.new(possible, possible ? nil : "Invalid move")
+    MovePossibility.new(possible, possible ? nil : "Move not possible for bishop")
   end
   
 end

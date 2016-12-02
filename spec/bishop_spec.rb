@@ -44,7 +44,7 @@ describe Bishop do
       possibility = bishop.is_move_possible(layout, [3, 3], [6, 7])
       
       expect(possibility.possible?).to be(false)
-      expect(possibility.error).to eql("Invalid move")
+      expect(possibility.error).to eql("Move not possible for bishop")
     end
  
   end
