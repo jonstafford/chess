@@ -1,4 +1,5 @@
 require 'colors'
+require 'move_syntax_validation'
 
 class Board
   include Colors
@@ -25,7 +26,14 @@ class Board
     lines 
   end
   
-  def play_move(move)
+  def play_move(move_input)
+    validation = MoveSyntaxValidation.new(move_input)
+    if (validation.valid?)
+      syntactically_valid_move = validation.syntactically_valid_move
+    else
+      error = validation.error
+    end
+    # TODO 
   end
   
   def done?
