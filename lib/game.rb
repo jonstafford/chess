@@ -64,7 +64,9 @@ class Game
       puts l
     end
     
-    puts @board_controller.board_status
+    @board_controller.board_status.each do |l|
+      puts l
+    end
   end
   
   def play_game

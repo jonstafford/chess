@@ -32,7 +32,7 @@ class BoardController
       piece = @board.piece_at_location(from)
       
       unless (piece.white? == @next_player_white)
-        error = "Start location is not one of your pieces!"
+        @last_error = "Start location is not one of your pieces!"
       else
       
         possibility = piece.is_move_possible(@board, from, to)
@@ -42,7 +42,7 @@ class BoardController
           # the move because it would leave a problem on the board.
           
           @board.move_piece(from, to)
-          @next_player_white != @next_player_white
+          @next_player_white = !@next_player_white
         else
           @last_error = possibility.error
         end
