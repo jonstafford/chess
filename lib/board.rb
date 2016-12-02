@@ -20,23 +20,12 @@ class Board
         count += 1
         l += square.square_view(count % 2 == 0)
       end
-      lines << l
+      count += 1 # Because next row begins with the same color as last row ends
+      lines.unshift(l)
     end
     
     lines 
   end
   
-  def play_move(move_input)
-    validation = MoveSyntaxValidation.new(move_input)
-    if (validation.valid?)
-      syntactically_valid_move = validation.syntactically_valid_move
-    else
-      error = validation.error
-    end
-    # TODO 
-  end
-  
-  def done?
-    false
-  end
+
 end

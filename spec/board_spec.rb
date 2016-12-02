@@ -2,6 +2,7 @@ require 'board'
 require 'game'
 require 'colors'
 require 'empty'
+require 'layout_builder'
 
 describe Board do
   
@@ -10,20 +11,24 @@ describe Board do
     
     it "answers the lines to output to the screen" do
       
-      layout = []
-      row = []
-      row << Rook.new(true)
-      row << Rook.new(true)
-      row << Rook.new(false)
-      row << Rook.new(false)
-      row << Empty.new
-      row << Empty.new
-      row << Empty.new
-      row << Empty.new
-      layout << row
+      builder = LayoutBuilder.new
       
-      board = Board.new(layout)
+      builder.piece_at([0, 0], Rook.new(true))
+      builder.piece_at([1, 0], Rook.new(true))
+      builder.piece_at([2, 0], Rook.new(false))
+      builder.piece_at([3, 0], Rook.new(false))
+      
+      board = Board.new(builder.layout)
       lines = board.board_view
+      
+      expected_lines = []
+      (0..6).each do |row|
+        expected = ""
+        (0..7).each do |col|
+          expected += piece_on_square(" ", false, !((row % 2 == 0) ^ (col % 2 == 0)))
+        end
+        expected_lines << expected
+      end
       
       expected = ""
       expected += piece_on_square(Rook.char(true), true, false) # Bottom left square is dark
@@ -35,7 +40,6 @@ describe Board do
       expected += piece_on_square(" ", false, false)
       expected += piece_on_square(" ", false, true)
       
-      expected_lines = []
       expected_lines << expected
       
       expect(lines).to eql(expected_lines)

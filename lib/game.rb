@@ -48,6 +48,7 @@ class Game
   
   def initialize     
     @board = Board.new(starting_layout)
+    @board_controller = BoardController.new(@board)
   end
   
   def get_move
@@ -60,15 +61,15 @@ class Game
       puts l
     end
     
-    puts @board.board_status
+    puts @board_controller.board_status
   end
   
   def play_game
     loop do
       print_board
       move = get_move
-      @board.play_move(move)
-      break if @board.done?
+      @board_controller.play_move(move)
+      break if @board_controller.done?
     end
     print_board
   end

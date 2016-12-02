@@ -15,5 +15,9 @@ class Queen < Piece
   def printable_char
     Queen.char(color)
   end
+  
+  def is_move_possible(layout, from, to)
+    MovePossibility.new(false, "Tried to move an empty square!")
+  end
     
 end
