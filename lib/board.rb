@@ -1,5 +1,5 @@
-require 'colors'
-require 'move_syntax_validation'
+require_relative 'colors'
+require_relative 'move_syntax_validation'
 
 class Board
   include Colors
@@ -15,8 +15,8 @@ class Board
     lines = []
     
     count = 0
-    @layout.each do |row|
-      l = ""
+    @layout.each_with_index do |row, y|
+      l = (y + 1).to_s + "  "
       row.each do |square|
         count += 1
         l += square.square_view(count % 2 == 0)
@@ -24,6 +24,9 @@ class Board
       count += 1 # Because next row begins with the same color as last row ends
       lines.unshift(l)
     end
+    
+    lines << ""
+    lines << "   " + "abcdefgh"
     
     lines 
   end

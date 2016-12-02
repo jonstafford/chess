@@ -1,10 +1,12 @@
-require './lib/board'
-require './lib/rook'
-require './lib/knight'
-require './lib/bishop'
-require './lib/queen'
-require './lib/king'
-require './lib/pawn'
+require_relative 'board'
+require_relative 'rook'
+require_relative 'knight'
+require_relative 'bishop'
+require_relative 'queen'
+require_relative 'king'
+require_relative 'pawn'
+require_relative 'empty'
+require_relative 'board_controller'
 
 class Game
   
@@ -36,7 +38,7 @@ class Game
     
     4.times do
       empty_row = []
-      8.times { empty_row << :e }
+      8.times { empty_row << Empty.new }
       layout << empty_row
     end
     
@@ -47,7 +49,7 @@ class Game
   end
   
   def initialize     
-    @board = Board.new(starting_layout)
+    @board = Board.new(self.class.starting_layout)
     @board_controller = BoardController.new(@board)
   end
   

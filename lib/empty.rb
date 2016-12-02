@@ -1,6 +1,6 @@
-require 'square'
-require 'colors'
-require 'move_possibility'
+require_relative 'square'
+require_relative 'colors'
+require_relative 'move_possibility'
 
 # An unoccupied square
 class Empty < Square

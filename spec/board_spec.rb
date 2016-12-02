@@ -23,14 +23,14 @@ describe Board do
       
       expected_lines = []
       (0..6).each do |row|
-        expected = ""
+        expected = (8 - row).to_s + "  "
         (0..7).each do |col|
           expected += piece_on_square(" ", false, !((row % 2 == 0) ^ (col % 2 == 0)))
         end
         expected_lines << expected
       end
       
-      expected = ""
+      expected = "1  "
       expected += piece_on_square(Rook.char(true), true, false) # Bottom left square is dark
       expected += piece_on_square(Rook.char(true), true, true)
       expected += piece_on_square(Rook.char(false), false, false)
@@ -41,6 +41,13 @@ describe Board do
       expected += piece_on_square(" ", false, true)
       
       expected_lines << expected
+      
+      expected_lines << ""
+      expected_lines << "   " + "abcdefgh"
+      
+      # For debugging
+      #expected_lines.each {|l| puts l }
+      #lines.each {|l| puts l }
       
       expect(lines).to eql(expected_lines)
     end

@@ -1,5 +1,5 @@
-require 'square'
-require 'colors'
+require_relative 'square'
+require_relative 'colors'
 
 class Piece < Square
   include Colors
