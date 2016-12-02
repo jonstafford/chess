@@ -16,4 +16,8 @@ class Piece < Square
     @white
   end
   
+  def empty?
+    false
+  end
+  
 end

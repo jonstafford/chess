@@ -18,9 +18,31 @@ class Rook < Piece
   
   def is_move_possible(layout, from, to)
     
-    # TODO 
+    possible = true
+    
+    # Horrendous logic for figuring out if all the squares are empty between the
+    # from and to
+    if (from[0] == to[0]) # Move along a file
+      sign = (to[1] - from[1]) / (to[1] - from[1]).abs
+      i = from[1] + sign
+      loop do
+        break if i == to[1]
+        possible &= layout[i][from[0]].empty?
+        i += sign
+      end    
+    elsif (from[1] == to[1]) # Move along a row
+      sign = (to[0] - from[0]) / (to[0] - from[0]).abs
+      i = from[0] + sign
+      loop do
+        break if i == to[0]
+        possible &= layout[from[1]][i].empty?
+        i += sign
+      end    
+    else
+      possible = false
+    end
 
-    MovePossibility.new(true, nil)
+    MovePossibility.new(possible, possible ? nil : "Move not possible for rook")
   end
     
 end

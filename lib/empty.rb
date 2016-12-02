@@ -14,4 +14,8 @@ class Empty < Square
     MovePossibility.new(false, "Tried to move an empty square!")
   end
   
+  def empty?
+    true
+  end
+  
 end

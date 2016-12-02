@@ -30,9 +30,14 @@ class BoardController
       to = user_location_to_indexes(syntactically_valid_move[2, 2])
     
       piece = @board.piece_at_location(from)
+      target_piece = @board.piece_at_location(to)
       
-      unless (piece.white? == @next_player_white)
+      if (from == to)
+        @last_error = "Start location is same as target location"
+      elsif (piece.white? != @next_player_white)
         @last_error = "Start location is not one of your pieces!"
+      elsif (!target_piece.empty? && target_piece.white? == @next_player_white)
+        @last_error = "Target location already has one of your pieces!"
       else
       
         possibility = piece.is_move_possible(@board, from, to)
