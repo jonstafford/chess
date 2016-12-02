@@ -3,15 +3,17 @@ require 'colors'
 
 class Piece < Square
   include Colors
-  
-  attr_reader :color
-  
-  def initialize(color)
-    @color = color
+    
+  def initialize(white)
+    @white = white
   end
   
   def square_view(on_white)
-    piece_on_square(printable_char, color, on_white)
+    piece_on_square(printable_char, white?, on_white)
+  end
+  
+  def white?
+    @white
   end
   
 end

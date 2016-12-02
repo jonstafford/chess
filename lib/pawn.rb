@@ -13,7 +13,7 @@ class Pawn < Piece
   end
   
   def printable_char
-    Pawn.char(color)
+    Pawn.char(white?)
   end
   
 end

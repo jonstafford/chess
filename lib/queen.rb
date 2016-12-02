@@ -13,7 +13,7 @@ class Queen < Piece
   end
     
   def printable_char
-    Queen.char(color)
+    Queen.char(white?)
   end
   
   def is_move_possible(layout, from, to)

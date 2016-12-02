@@ -4,6 +4,7 @@ class BoardController
   
   def initialize(board)
     @board = board
+    @next_player_white = true
   end
   
   # Convert a user location like g5 to a pair of indexes we can use to address
@@ -16,6 +17,7 @@ class BoardController
   end
   
   def play_move(move_input)
+    error = nil
     validation = MoveSyntaxValidation.new(move_input)
     if (validation.valid?)
       syntactically_valid_move = validation.syntactically_valid_move
@@ -24,12 +26,19 @@ class BoardController
       to = user_location_to_indexes(syntactically_valid_move[2, 2])
     
       piece = piece_at_location(from)
-      possibility = piece.is_move_possible(@board, from, to)
       
-      if (possibility.possible?)
-        # Do something
+      unless (piece.white? == @next_player_white)
+        error = "Start location is not one of your pieces!"
       else
-        error = possibility.error
+      
+        possibility = piece.is_move_possible(@board, from, to)
+      
+        if (possibility.possible?)
+          # According to the piece that move is possible. We may still disallow
+          # the move because it would leave a problem on the board.
+        else
+          error = possibility.error
+        end
       end
       
     else

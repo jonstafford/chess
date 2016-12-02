@@ -5,6 +5,7 @@ class Board
   include Colors
   
   def initialize(layout)
+    # @layout is an array of row arrays. So location [x, y] is at @layout[y][x].
     @layout = layout
   end
   
@@ -27,5 +28,8 @@ class Board
     lines 
   end
   
+  def move_piece(from, to)
+    @layout[from[1]][from[0]], @layout[to[1]][to[0]] =  @layout[to[1]][to[0]], @layout[from[1]][from[0]]
+  end
 
 end

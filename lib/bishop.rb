@@ -13,7 +13,7 @@ class Bishop < Piece
   end
   
   def printable_char
-    Bishop.char(color)
+    Bishop.char(white?)
   end
   
   def is_move_possible(layout, from, to)

@@ -13,7 +13,7 @@ class Rook < Piece
   end
   
   def printable_char
-    Rook.char(color)
+    Rook.char(white?)
   end
     
 end

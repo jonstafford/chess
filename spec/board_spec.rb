@@ -46,6 +46,30 @@ describe Board do
     end
   end
   
+  describe "#move_piece" do
+    
+    it "moves a piece from one place to another" do
+      
+      expected_builder = LayoutBuilder.new
+      expected_builder.piece_at([2, 0], Rook.new(false))
+      expected_board = Board.new(expected_builder.layout)
+      expected_lines = expected_board.board_view
+      
+      builder = LayoutBuilder.new
+      builder.piece_at([6, 0], Rook.new(false))
+      board = Board.new(builder.layout)
+      
+      board.move_piece([6, 0], [2, 0])
+      
+      lines = board.board_view
+
+      # For debugging
+      #expected_lines.each {|l| puts l }
+      #lines.each {|l| puts l }
+
+      expect(lines).to eql(expected_lines)
+    end
+  end
   
   
 end

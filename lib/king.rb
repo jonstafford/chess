@@ -14,7 +14,7 @@ class King < Piece
   
   
   def printable_char
-    King.char(color)
+    King.char(white?)
   end
   
 end

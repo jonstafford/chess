@@ -13,7 +13,7 @@ class Knight < Piece
   end
   
   def printable_char
-    Knight.char(color)
+    Knight.char(white?)
   end
   
 end
