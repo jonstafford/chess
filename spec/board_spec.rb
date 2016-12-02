@@ -79,6 +79,29 @@ describe Board do
 
       expect(lines).to eql(expected_lines)
     end
+    
+    it "black rook captures white rook" do
+      
+      expected_builder = LayoutBuilder.new
+      expected_builder.piece_at([1, 5], Rook.new(false))
+      expected_board = Board.new(expected_builder.layout)
+      expected_lines = expected_board.board_view
+      
+      builder = LayoutBuilder.new
+      builder.piece_at([1, 1], Rook.new(false))
+      builder.piece_at([1, 5], Rook.new(true))
+      board = Board.new(builder.layout)
+      
+      board.move_piece([1, 1], [1, 5])
+      
+      lines = board.board_view
+
+      # For debugging
+      #expected_lines.each {|l| puts l }
+      #lines.each {|l| puts l }
+
+      expect(lines).to eql(expected_lines)
+    end
   end
   
   

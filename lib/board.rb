@@ -35,7 +35,8 @@ class Board
   end
   
   def move_piece(from, to)
-    @layout[from[1]][from[0]], @layout[to[1]][to[0]] =  @layout[to[1]][to[0]], @layout[from[1]][from[0]]
+    @layout[to[1]][to[0]] =  @layout[from[1]][from[0]]
+    @layout[from[1]][from[0]] = Empty.new
   end
   
   def piece_at_location(location)
