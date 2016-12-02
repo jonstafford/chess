@@ -17,4 +17,11 @@ class King < Piece
     King.char(white?)
   end
   
+  def is_move_possible(layout, from, to)
+    
+    # TODO 
+
+    MovePossibility.new(true, nil)
+  end
+  
 end

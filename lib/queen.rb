@@ -17,7 +17,10 @@ class Queen < Piece
   end
   
   def is_move_possible(layout, from, to)
-    MovePossibility.new(false, "Tried to move an empty square!")
+    
+    # TODO 
+
+    MovePossibility.new(true, nil)
   end
     
 end

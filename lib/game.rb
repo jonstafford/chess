@@ -54,6 +54,7 @@ class Game
   end
   
   def get_move
+    print "Your move?: "
     move = gets.chomp
   end
   

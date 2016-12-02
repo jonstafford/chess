@@ -25,14 +25,21 @@ class Board
       lines.unshift(l)
     end
     
+    lines.unshift("") # Blank line before
+    
     lines << ""
     lines << "   " + "abcdefgh"
+    lines << "" # Blank line after
     
     lines 
   end
   
   def move_piece(from, to)
     @layout[from[1]][from[0]], @layout[to[1]][to[0]] =  @layout[to[1]][to[0]], @layout[from[1]][from[0]]
+  end
+  
+  def piece_at_location(location)
+    @layout[location[1]][location[0]]
   end
 
 end

@@ -29,7 +29,7 @@ class BoardController
       from = user_location_to_indexes(syntactically_valid_move[0, 2])
       to = user_location_to_indexes(syntactically_valid_move[2, 2])
     
-      piece = piece_at_location(from)
+      piece = @board.piece_at_location(from)
       
       unless (piece.white? == @next_player_white)
         error = "Start location is not one of your pieces!"

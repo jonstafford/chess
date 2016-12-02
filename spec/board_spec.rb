@@ -22,6 +22,8 @@ describe Board do
       lines = board.board_view
       
       expected_lines = []
+      expected_lines << ""
+      
       (0..6).each do |row|
         expected = (8 - row).to_s + "  "
         (0..7).each do |col|
@@ -44,6 +46,7 @@ describe Board do
       
       expected_lines << ""
       expected_lines << "   " + "abcdefgh"
+      expected_lines << ""      
       
       # For debugging
       #expected_lines.each {|l| puts l }
