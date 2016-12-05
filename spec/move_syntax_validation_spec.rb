@@ -12,6 +12,15 @@ describe MoveSyntaxValidation do
       
       expect(validation.error).to eql("'asdf' is not a valid move")
     end
+
+    it "has an error for an out of range move" do
+      
+      validation = MoveSyntaxValidation.new("a2b9")
+      
+      expect(validation.valid?).to be(false)
+      
+      expect(validation.error).to eql("'a2b9' is not a valid move")
+    end
  
     it "has an error for an invalid move" do
       
