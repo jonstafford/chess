@@ -18,9 +18,9 @@ class Queen < Piece
   
   def is_move_possible(layout, from, to)
     
-    # TODO 
+    possible = diagonal_move_possible?(layout, from, to) || row_or_file_move_possible?(layout, from, to)
 
-    MovePossibility.new(true, nil)
+    MovePossibility.new(possible, possible ? nil : "Move not possible for Queen")
   end
     
 end

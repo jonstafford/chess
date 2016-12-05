@@ -18,9 +18,35 @@ class Pawn < Piece
   
   def is_move_possible(layout, from, to)
     
-    # TODO 
-
-    MovePossibility.new(true, nil)
+    direction = white? ? 1 : -1
+        
+    location_in_front = [from[0], from[1] + direction]
+    square_in_front = layout[location_in_front[1]][location_in_front[0]]
+    
+    possible = false
+    if square_in_front.empty?
+      if (to == location_in_front)
+        possible = true
+      else
+        still_in_starting_location =
+        if (white?)
+          from[1] == 1
+        else
+          from[1] == 6
+        end
+        
+        if (still_in_starting_location)
+          location_2_in_front = [from[0], from[1] + 2 * direction]
+          
+          if (location_2_in_front == to)  
+            square_2_in_front = layout[location_2_in_front[1]][location_2_in_front[0]]
+            possible = square_2_in_front.empty?
+          end
+        end
+      end
+    end
+       
+    MovePossibility.new(possible, "Move not possible for pawn")
   end
   
 end
