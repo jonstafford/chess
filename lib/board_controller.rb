@@ -40,7 +40,12 @@ class BoardController
         @last_error = "Target location already has one of your pieces!"
       else
       
-        possibility = piece.is_move_possible(@board, from, to)
+        layout = @board.layout
+        if (layout.nil?)
+          puts "layout nil!!!!!!!!!!"
+        end
+      
+        possibility = piece.is_move_possible(layout, from, to)
       
         if (possibility.possible?)
           # TODO According to the piece that move is possible. We may still disallow

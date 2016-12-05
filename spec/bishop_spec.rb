@@ -32,7 +32,7 @@ describe Bishop do
       expect(possibility.possible?).to be(true)
     end
  
-    it "must not allow an invalid move" do
+    it "must not allow a move not along a diagonal" do
       
       builder = LayoutBuilder.new
       
@@ -46,6 +46,22 @@ describe Bishop do
       expect(possibility.possible?).to be(false)
       expect(possibility.error).to eql("Move not possible for bishop")
     end
+ 
+    it "must not allow a move where other pieces are in the way" do
+      
+      builder = LayoutBuilder.new
+      
+      bishop = Bishop.new(true)
+      builder.piece_at([3, 3], bishop)
+      builder.piece_at([4, 4], Rook.new(true))
+      
+      layout = builder.layout
+      
+      possibility = bishop.is_move_possible(layout, [3, 3], [6, 6])
+      
+      expect(possibility.possible?).to be(false)
+      expect(possibility.error).to eql("Move not possible for bishop")
+    end 
  
   end
   

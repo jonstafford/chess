@@ -4,6 +4,8 @@ require_relative 'move_syntax_validation'
 class Board
   include Colors
   
+  attr_reader :layout
+  
   def initialize(layout)
     # @layout is an array of row arrays. So location [x, y] is at @layout[y][x].
     @layout = layout
