@@ -19,9 +19,9 @@ class King < Piece
   
   def is_move_possible(layout, from, to)
     
-    # TODO 
+    possible = ((to[0] - from[0]).abs == 1) && ((to[1] - from[1]).abs == 1)
 
-    MovePossibility.new(true, nil)
+    MovePossibility.new(possible, possible ? nil : "Move not possible for King")
   end
   
 end
