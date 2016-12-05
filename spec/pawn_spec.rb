@@ -40,6 +40,21 @@ describe Pawn do
       expect(possibility.error).to eql("Move not possible for pawn")
     end
  
+    it "can capture diagonally forwards" do
+      
+      builder = LayoutBuilder.new
+      
+      pawn = Pawn.new(true)
+      builder.piece_at([4, 4], pawn)
+      builder.piece_at([5, 5], Pawn.new(false))
+      builder.piece_at([3, 5], Pawn.new(false))
+      
+      layout = builder.layout
+     
+      expect(pawn.is_move_possible(layout, [4, 4], [5, 5]).possible?).to be(true)
+      expect(pawn.is_move_possible(layout, [4, 4], [3, 5]).possible?).to be(true)
+    end 
+ 
   end
   
 end
