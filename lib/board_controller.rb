@@ -2,8 +2,8 @@ require_relative 'board'
 
 class BoardController
   
-  attr_reader :last_error
-  attr_reader :last_move_input
+#  attr_reader :last_error
+#  attr_reader :last_move_input
   
   def initialize(board)
     @board = board
@@ -41,18 +41,16 @@ class BoardController
       else
       
         layout = @board.layout
-        if (layout.nil?)
-          puts "layout nil!!!!!!!!!!"
-        end
       
         possibility = piece.is_move_possible(layout, from, to)
       
         if (possibility.possible?)
           # TODO According to the piece that move is possible. We may still disallow
-          # the move because it would leave a problem on the board.
+          # the move because it would leave a problem on the board. E.g. revealed check
           
           @board.move_piece(from, to)
           @next_player_white = !@next_player_white
+          @check = @board.in_check?(@next_player_white)
         else
           @last_error = possibility.error
         end
@@ -71,6 +69,7 @@ class BoardController
     stati = []
     stati << "Last move was #{@last_move_input}" unless @last_move_input.nil?
     stati << "There was a problem with the last move: #{@last_error}" unless @last_error.nil?
+    stati << "CHECK!" unless !@check
     stati << "Next player to move is " + (@next_player_white ? "white" : "black")
   end
   

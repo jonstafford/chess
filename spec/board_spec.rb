@@ -104,6 +104,20 @@ describe Board do
     end
   end
   
+  it "recognizes being in check" do
+    builder = LayoutBuilder.new
+    
+    builder.piece_at([4, 4], Knight.new(false))
+    builder.piece_at([5, 6], King.new(true))
+    builder.piece_at([1, 1], King.new(false))
+   
+    layout = builder.layout
+    
+    board = Board.new(layout)
+    
+    expect(board.in_check?(true)).to be(true)
+    expect(board.in_check?(false)).to be(false)
+  end
   
 end
       

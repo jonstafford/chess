@@ -1,5 +1,6 @@
 require_relative 'colors'
 require_relative 'move_syntax_validation'
+require_relative 'king'
 
 class Board
   include Colors
@@ -43,6 +44,33 @@ class Board
   
   def piece_at_location(location)
     @layout[location[1]][location[0]]
+  end
+
+  # Answers hash of the pieces of the color given
+  def pieces(white, only_king=false)
+    result = {}
+    @layout.each_with_index do |row, y|
+      row.each_with_index do |square, x|
+        if (!square.empty? && square.white? == white && (!only_king || square.is_a?(King)))
+          result[[x, y]] = square
+        end
+      end
+    end
+    result    
+  end
+
+  def in_check?(player_is_white)
+    player_king_location = pieces(player_is_white, true).keys[0]
+    
+    other_player_pieces = pieces(!player_is_white)
+
+    other_player_pieces.each do |location, piece|
+      if (piece.is_move_possible(layout, location, player_king_location).possible?)
+        return true
+      end
+    end    
+ 
+    return false
   end
 
 end
