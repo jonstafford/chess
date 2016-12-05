@@ -18,9 +18,16 @@ class Knight < Piece
   
   def is_move_possible(layout, from, to)
     
-    # TODO 
+    straight_move = diagonal_move_possible?(layout, from, to) || row_or_file_move_possible?(layout, from, to)
 
-    MovePossibility.new(true, nil)
+    possible = false
+    if (!straight_move)
+      # Where it's not a straight move, it will be an 'L' shape when it's 
+      # (1 + 2) or it's (2 + 1).
+      possible = (to[0] - from[0]).abs + (to[1] - from[1]).abs == 3
+    end
+
+    MovePossibility.new(possible, possible ? nil : "Move not possible for Knight")
   end
   
 end
