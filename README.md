@@ -13,6 +13,7 @@ The game recognizes check, checkmate and stalemate positions.
 
 # Not yet implemented
 
+- Recognizes draw when only kings remain
 - Castling
 - Pawn promotion
 - En passant
