@@ -14,6 +14,7 @@ describe King do
       layout = builder.layout
      
       expect(king.is_move_possible(layout, [4, 4], [5, 5]).possible?).to be(true)
+      expect(king.is_move_possible(layout, [4, 4], [4, 5]).possible?).to be(true)
       expect(king.is_move_possible(layout, [4, 4], [3, 5]).possible?).to be(true)
       
       expect(king.is_move_possible(layout, [4, 4], [3, 2]).possible?).to be(false)
