@@ -118,6 +118,39 @@ describe Board do
     expect(board.in_check?(true)).to be(true)
     expect(board.in_check?(false)).to be(false)
   end
+
+  it "recognizes a move which would leave the player in check" do
+    builder = LayoutBuilder.new
+    
+    builder.piece_at([4, 4], Knight.new(false))
+    builder.piece_at([5, 5], King.new(true))
+   
+    layout = builder.layout
+    
+    board = Board.new(layout)
+    
+    expect(board.move_leaves_player_in_check?(true, [5, 5], [5, 6])).to be(true)
+  end
+  
+  
+  it "can calculate if there is a move to not be in check" do
+    builder = LayoutBuilder.new
+    
+    builder.piece_at([0, 4], Rook.new(false))
+    builder.piece_at([0, 6], Rook.new(false))
+    builder.piece_at([4, 2], Rook.new(false))
+    builder.piece_at([6, 2], Rook.new(false))
+    builder.piece_at([5, 5], King.new(true))
+    builder.piece_at([4, 1], Pawn.new(true))
+    builder.piece_at([6, 1], Pawn.new(true))
+   
+    layout = builder.layout
+    
+    board = Board.new(layout)
+    
+    expect(board.has_move_so_not_in_check?(true)).to be(false)
+  end
+  
   
 end
       

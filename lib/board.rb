@@ -68,6 +68,15 @@ class Board
     result    
   end
 
+  def move_leaves_player_in_check?(player_is_white, from, to)
+    from_piece = piece_at_location(from)
+    to_piece = piece_at_location(to)
+    move_piece(from, to)
+    result = in_check?(player_is_white)
+    undo_move_piece(from, from_piece, to, to_piece)
+    result
+  end
+
   def in_check?(player_is_white)
     player_king_location = pieces(player_is_white, true).keys[0]
     
@@ -80,6 +89,51 @@ class Board
     end    
  
     return false
+  end
+
+  def has_move_so_not_in_check?(player_is_white)
+    pieces = pieces(player_is_white)
+    
+    pieces.each do |location, piece|
+      @layout.each_with_index do |row, y|
+        row.each_with_index do |square, x|
+          to = [x, y]
+          return true if (move_possible(player_is_white, location, to).nil? &&
+            !move_leaves_player_in_check?(player_is_white, location, to))
+        end
+      end
+    end
+    
+    return false
+  end
+  
+  def move_possible(player_is_white, from, to)
+    piece = piece_at_location(from)
+    target_piece = piece_at_location(to)
+    
+    error = nil
+    if (from == to)
+      error = "Start location is same as target location"
+    elsif (piece.empty? || piece.white? != player_is_white)
+      error = "Start location is not one of your pieces!"
+    elsif (!target_piece.empty? && target_piece.white? == player_is_white)
+      error = "Target location already has one of your pieces!"
+    else
+        
+      possibility = piece.is_move_possible(layout, from, to)
+    
+      if (possibility.possible?)
+        # The move shouldn't put the player into check or fail to get them 
+        # out of check if they already are in check.
+        if (move_leaves_player_in_check?(player_is_white, from, to)) 
+          error = "That move would leave the " + (player_is_white ? "white" : "black") + " player in check."
+        end
+      else
+        error = possibility.error
+      end
+    end
+    
+    error
   end
 
 end
