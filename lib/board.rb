@@ -42,6 +42,15 @@ class Board
     @layout[from[1]][from[0]] = Empty.new
   end
   
+  def set_piece(location, piece)
+    @layout[location[1]][location[0]] = piece
+  end
+  
+  def undo_move_piece(old_from, old_from_piece, old_to, old_to_piece)
+    set_piece(old_from, old_from_piece)
+    set_piece(old_to, old_to_piece)
+  end
+  
   def piece_at_location(location)
     @layout[location[1]][location[0]]
   end

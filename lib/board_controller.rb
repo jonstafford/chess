@@ -45,12 +45,17 @@ class BoardController
         possibility = piece.is_move_possible(layout, from, to)
       
         if (possibility.possible?)
-          # TODO According to the piece that move is possible. We may still disallow
-          # the move because it would leave a problem on the board. E.g. revealed check
-          
+          from_piece = @board.piece_at_location(from)
+          to_piece = @board.piece_at_location(to)
           @board.move_piece(from, to)
-          @next_player_white = !@next_player_white
-          @check = @board.in_check?(@next_player_white)
+          # Ensure the move doesn't mean the player put themselves in check
+          if (@board.in_check?(@next_player_white)) 
+            @board.undo_move_piece(from, from_piece, to, to_piece)
+            @last_error = "That move would put the " + (@next_player_white ? "white" : "black") + " player in check."
+          else
+            @next_player_white = !@next_player_white
+            @check = @board.in_check?(@next_player_white)
+          end
         else
           @last_error = possibility.error
         end
